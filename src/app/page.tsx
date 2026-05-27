@@ -1,6 +1,5 @@
 import { AppShowcase } from "@/components/landing/app-showcase";
 import { FaqSection } from "@/components/landing/faq-section";
-import { FinalCta } from "@/components/landing/final-cta";
 import { HeroSection } from "@/components/landing/hero-section";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { SiteHeader } from "@/components/landing/site-header";
@@ -17,7 +16,6 @@ export default function Home() {
         <PricingSection />
         <WorkflowSection />
         <FaqSection />
-        <FinalCta />
       </main>
       <SiteFooter />
     </div>

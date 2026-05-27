@@ -3,8 +3,8 @@ import { appName, navigationItems } from "./landing-content";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/92 backdrop-blur">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-5 sm:px-8">
+    <header className="sticky top-0 z-[100] border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-3 px-5 sm:px-8">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-3 font-semibold text-slate-950"
