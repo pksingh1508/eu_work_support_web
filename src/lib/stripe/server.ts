@@ -1,11 +1,11 @@
 import Stripe from "stripe";
-import { getServerEnv } from "@/lib/env";
+import { getStripeCheckoutEnv } from "@/lib/env";
 
 let stripeClient: Stripe | undefined;
 
 export function getStripe() {
   if (!stripeClient) {
-    const env = getServerEnv();
+    const env = getStripeCheckoutEnv();
 
     stripeClient = new Stripe(env.STRIPE_SECRET_KEY, {
       appInfo: {

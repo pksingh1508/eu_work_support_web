@@ -55,3 +55,32 @@ export async function getAppUserByClerkUserId(clerkUserId: string) {
 
   return data;
 }
+
+export async function getAppUserForClerkAccount({
+  clerkUserId,
+  email,
+}: {
+  clerkUserId: string;
+  email?: string | null;
+}) {
+  const appUser = await getAppUserByClerkUserId(clerkUserId);
+
+  if (appUser || !email) {
+    return appUser;
+  }
+
+  const supabase = createSupabaseServiceClient();
+  const { data, error } = await supabase
+    .from("app_users")
+    .select(appUserSelect)
+    .ilike("email", email)
+    .is("deleted_at", null)
+    .limit(1)
+    .maybeSingle<AppUser>();
+
+  if (error) {
+    throw new Error(`Unable to load app user by email: ${error.message}`);
+  }
+
+  return data;
+}

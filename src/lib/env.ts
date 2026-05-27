@@ -38,13 +38,28 @@ const brevoEnvSchema = serverEnvSchema
     PAYMENT_LINK_API_SECRET: optionalSecretSchema,
   });
 
+const stripeCheckoutEnvSchema = serverEnvSchema.pick({
+  NEXT_PUBLIC_SITE_URL: true,
+  STRIPE_PRO_PRICE_ID: true,
+  STRIPE_SECRET_KEY: true,
+});
+
+const supabaseEnvSchema = serverEnvSchema.pick({
+  SUPABASE_SERVICE_ROLE_KEY: true,
+  SUPABASE_URL: true,
+});
+
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
 export type BrevoEnv = z.infer<typeof brevoEnvSchema>;
+export type StripeCheckoutEnv = z.infer<typeof stripeCheckoutEnvSchema>;
+export type SupabaseEnv = z.infer<typeof supabaseEnvSchema>;
 
 let cachedServerEnv: ServerEnv | undefined;
 let cachedPublicEnv: PublicEnv | undefined;
 let cachedBrevoEnv: BrevoEnv | undefined;
+let cachedStripeCheckoutEnv: StripeCheckoutEnv | undefined;
+let cachedSupabaseEnv: SupabaseEnv | undefined;
 
 function formatEnvError(error: z.ZodError) {
   return error.issues
@@ -112,4 +127,47 @@ export function getBrevoEnv() {
   }
 
   return cachedBrevoEnv;
+}
+
+export function getStripeCheckoutEnv() {
+  if (typeof window !== "undefined") {
+    throw new Error("Stripe environment variables cannot be read in the browser.");
+  }
+
+  if (!cachedStripeCheckoutEnv) {
+    const parsed = stripeCheckoutEnvSchema.safeParse({
+      NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+      STRIPE_PRO_PRICE_ID: process.env.STRIPE_PRO_PRICE_ID,
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    });
+
+    if (!parsed.success) {
+      throw new Error(`Invalid Stripe environment: ${formatEnvError(parsed.error)}`);
+    }
+
+    cachedStripeCheckoutEnv = parsed.data;
+  }
+
+  return cachedStripeCheckoutEnv;
+}
+
+export function getSupabaseEnv() {
+  if (typeof window !== "undefined") {
+    throw new Error("Supabase environment variables cannot be read in the browser.");
+  }
+
+  if (!cachedSupabaseEnv) {
+    const parsed = supabaseEnvSchema.safeParse({
+      SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      SUPABASE_URL: process.env.SUPABASE_URL,
+    });
+
+    if (!parsed.success) {
+      throw new Error(`Invalid Supabase environment: ${formatEnvError(parsed.error)}`);
+    }
+
+    cachedSupabaseEnv = parsed.data;
+  }
+
+  return cachedSupabaseEnv;
 }
