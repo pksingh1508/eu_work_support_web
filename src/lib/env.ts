@@ -22,11 +22,29 @@ const publicEnvSchema = serverEnvSchema.pick({
   NEXT_PUBLIC_SITE_URL: true,
 });
 
+const optionalSecretSchema = z.preprocess(
+  (value) => (value === "" ? undefined : value),
+  z.string().min(16).optional(),
+);
+
+const brevoEnvSchema = serverEnvSchema
+  .pick({
+    BREVO_API_KEY: true,
+    BREVO_SENDER_EMAIL: true,
+    BREVO_SENDER_NAME: true,
+    NEXT_PUBLIC_SITE_URL: true,
+  })
+  .extend({
+    PAYMENT_LINK_API_SECRET: optionalSecretSchema,
+  });
+
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
+export type BrevoEnv = z.infer<typeof brevoEnvSchema>;
 
 let cachedServerEnv: ServerEnv | undefined;
 let cachedPublicEnv: PublicEnv | undefined;
+let cachedBrevoEnv: BrevoEnv | undefined;
 
 function formatEnvError(error: z.ZodError) {
   return error.issues
@@ -70,4 +88,28 @@ export function getPublicEnv() {
   }
 
   return cachedPublicEnv;
+}
+
+export function getBrevoEnv() {
+  if (typeof window !== "undefined") {
+    throw new Error("Brevo environment variables cannot be read in the browser.");
+  }
+
+  if (!cachedBrevoEnv) {
+    const parsed = brevoEnvSchema.safeParse({
+      BREVO_API_KEY: process.env.BREVO_API_KEY,
+      BREVO_SENDER_EMAIL: process.env.BREVO_SENDER_EMAIL,
+      BREVO_SENDER_NAME: process.env.BREVO_SENDER_NAME,
+      NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+      PAYMENT_LINK_API_SECRET: process.env.PAYMENT_LINK_API_SECRET,
+    });
+
+    if (!parsed.success) {
+      throw new Error(`Invalid Brevo environment: ${formatEnvError(parsed.error)}`);
+    }
+
+    cachedBrevoEnv = parsed.data;
+  }
+
+  return cachedBrevoEnv;
 }
