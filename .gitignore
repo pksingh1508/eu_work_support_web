@@ -35,7 +35,7 @@ yarn-error.log*
 .env.local
 !.env.example
 
-supabase.md
+# supabase.md
 
 
 # vercel

@@ -77,6 +77,7 @@ export async function POST() {
       plan: "PRO",
       product: "eu_work_support_pro_lifetime",
       purchase_type: "one_time_lifetime",
+      stripe_price_id: env.STRIPE_PRO_PRICE_ID,
     };
 
     const session = await stripe.checkout.sessions.create({

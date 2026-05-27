@@ -32,7 +32,7 @@ export default async function PaymentSuccessPage({
           <p className="mt-5 text-lg leading-8 text-slate-600">
             {alreadyPro
               ? "Return to the mobile app and log in with the same email to access PRO content."
-              : "The next phase will verify Stripe webhooks and upgrade your Supabase app_users plan to PRO automatically."}
+              : "Your payment is being verified by Stripe. Once the webhook finishes, return to the mobile app and log in with the same email to access PRO content."}
           </p>
           <Link
             href="/"

@@ -44,6 +44,15 @@ const stripeCheckoutEnvSchema = serverEnvSchema.pick({
   STRIPE_SECRET_KEY: true,
 });
 
+const stripeSecretEnvSchema = serverEnvSchema.pick({
+  STRIPE_SECRET_KEY: true,
+});
+
+const stripeWebhookEnvSchema = serverEnvSchema.pick({
+  STRIPE_SECRET_KEY: true,
+  STRIPE_WEBHOOK_SECRET: true,
+});
+
 const supabaseEnvSchema = serverEnvSchema.pick({
   SUPABASE_SERVICE_ROLE_KEY: true,
   SUPABASE_URL: true,
@@ -53,12 +62,16 @@ export type ServerEnv = z.infer<typeof serverEnvSchema>;
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
 export type BrevoEnv = z.infer<typeof brevoEnvSchema>;
 export type StripeCheckoutEnv = z.infer<typeof stripeCheckoutEnvSchema>;
+export type StripeSecretEnv = z.infer<typeof stripeSecretEnvSchema>;
+export type StripeWebhookEnv = z.infer<typeof stripeWebhookEnvSchema>;
 export type SupabaseEnv = z.infer<typeof supabaseEnvSchema>;
 
 let cachedServerEnv: ServerEnv | undefined;
 let cachedPublicEnv: PublicEnv | undefined;
 let cachedBrevoEnv: BrevoEnv | undefined;
 let cachedStripeCheckoutEnv: StripeCheckoutEnv | undefined;
+let cachedStripeSecretEnv: StripeSecretEnv | undefined;
+let cachedStripeWebhookEnv: StripeWebhookEnv | undefined;
 let cachedSupabaseEnv: SupabaseEnv | undefined;
 
 function formatEnvError(error: z.ZodError) {
@@ -149,6 +162,49 @@ export function getStripeCheckoutEnv() {
   }
 
   return cachedStripeCheckoutEnv;
+}
+
+export function getStripeSecretEnv() {
+  if (typeof window !== "undefined") {
+    throw new Error("Stripe environment variables cannot be read in the browser.");
+  }
+
+  if (!cachedStripeSecretEnv) {
+    const parsed = stripeSecretEnvSchema.safeParse({
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    });
+
+    if (!parsed.success) {
+      throw new Error(`Invalid Stripe environment: ${formatEnvError(parsed.error)}`);
+    }
+
+    cachedStripeSecretEnv = parsed.data;
+  }
+
+  return cachedStripeSecretEnv;
+}
+
+export function getStripeWebhookEnv() {
+  if (typeof window !== "undefined") {
+    throw new Error("Stripe webhook environment variables cannot be read in the browser.");
+  }
+
+  if (!cachedStripeWebhookEnv) {
+    const parsed = stripeWebhookEnvSchema.safeParse({
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+      STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    });
+
+    if (!parsed.success) {
+      throw new Error(
+        `Invalid Stripe webhook environment: ${formatEnvError(parsed.error)}`,
+      );
+    }
+
+    cachedStripeWebhookEnv = parsed.data;
+  }
+
+  return cachedStripeWebhookEnv;
 }
 
 export function getSupabaseEnv() {
