@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/landing/hero-section";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { SiteHeader } from "@/components/landing/site-header";
 import { WorkflowSection } from "@/components/landing/workflow-section";
+import { SiteFooter } from "@/components/site/site-footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <FaqSection />
         <FinalCta />
       </main>
+      <SiteFooter />
     </div>
   );
 }

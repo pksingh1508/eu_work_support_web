@@ -83,8 +83,20 @@ export async function POST() {
     const session = await stripe.checkout.sessions.create({
       cancel_url: `${siteUrl}/payment/cancel`,
       client_reference_id: appUser.clerk_user_id,
+      consent_collection: {
+        terms_of_service: "required",
+      },
       customer_creation: "always",
       customer_email: checkoutEmail,
+      custom_text: {
+        submit: {
+          message:
+            "EU Work Support PRO is a one-time $50 digital purchase for lifetime access. Refund requests are reviewed under our Refund & Cancellation Policy.",
+        },
+        terms_of_service_acceptance: {
+          message: `I agree to the [EU Work Support Terms & Conditions](${siteUrl}/terms-and-conditions), [Privacy Policy](${siteUrl}/privacy-policy), and [Refund & Cancellation Policy](${siteUrl}/refund-and-cancellation-policy).`,
+        },
+      },
       line_items: [
         {
           price: env.STRIPE_PRO_PRICE_ID,
