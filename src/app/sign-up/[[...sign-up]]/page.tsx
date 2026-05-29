@@ -14,9 +14,9 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
 
   return (
     <AuthShell
-      eyebrow="Create your website account"
-      title="Use the same email you will use in the mobile app."
-      subtitle="After sign-up, you will continue to checkout. Clerk will create your website user, and your existing Clerk webhook keeps Supabase app_users in sync."
+      eyebrow="Create your account"
+      title="Create an Account using Email."
+      subtitle="After sign-up, you will continue to checkout."
     >
       <SignUp
         appearance={clerkAppearance}

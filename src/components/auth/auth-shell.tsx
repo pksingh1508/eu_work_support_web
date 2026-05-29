@@ -10,7 +10,12 @@ type AuthShellProps = {
   subtitle: string;
 };
 
-export function AuthShell({ children, eyebrow, title, subtitle }: AuthShellProps) {
+export function AuthShell({
+  children,
+  eyebrow,
+  title,
+  subtitle,
+}: AuthShellProps) {
   return (
     <main className="min-h-screen bg-[#f6f8fc]">
       <div className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-5 py-8 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:py-12">
@@ -28,7 +33,7 @@ export function AuthShell({ children, eyebrow, title, subtitle }: AuthShellProps
             <p className="mt-5 text-lg leading-8 text-slate-600">{subtitle}</p>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-lg border border-slate-200 bg-white p-4">
+          <div className="mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white p-4">
             <div className="relative mx-auto aspect-[9/18] max-h-[520px] w-full max-w-[260px] overflow-hidden rounded-[2rem] border-[10px] border-slate-950 bg-slate-950 shadow-2xl">
               <Image
                 src="/assets/home.jpg"
