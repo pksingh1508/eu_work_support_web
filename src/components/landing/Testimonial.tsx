@@ -22,7 +22,7 @@ export function Testimonial() {
               <article
                 key={`${testimonial.imageUrl}-${index}`}
                 aria-hidden={index >= testimonialData.length}
-                className="w-[240px] shrink-0 rounded-[1.5rem] border border-white/35 bg-[#246298] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.22)] sm:w-[280px]"
+                className="w-[240px] shrink-0 rounded-[1.5rem] border border-white/35 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.18)] p-4 sm:w-[280px]"
               >
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[1.15rem] border border-white/30 bg-slate-900">
                   <Image
