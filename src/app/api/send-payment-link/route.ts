@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!isAuthorizedRequest(request, env.PAYMENT_LINK_API_SECRET)) {
+  if (!isAuthorizedRequest(request, env.X_API_KEY)) {
     return NextResponse.json(
       { ok: false, error: "Unauthorized request." },
       { status: 401 },
@@ -285,20 +285,15 @@ function getRequestIp(request: NextRequest) {
   );
 }
 
-function isAuthorizedRequest(request: NextRequest, secret?: string) {
-  if (!secret) {
-    return true;
-  }
-
-  const authorization = request.headers.get("authorization");
-  const bearerToken = authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
-  const requestSecret = request.headers.get("x-api-key") || bearerToken;
+function isAuthorizedRequest(request: NextRequest, expectedApiKey: string) {
+  const requestSecret =
+    request.headers.get("x-api-key") || request.headers.get("x_api_key");
 
   if (!requestSecret) {
     return false;
   }
 
-  return safeCompare(requestSecret, secret);
+  return safeCompare(requestSecret, expectedApiKey);
 }
 
 function safeCompare(value: string, expected: string) {

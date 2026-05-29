@@ -22,11 +22,6 @@ const publicEnvSchema = serverEnvSchema.pick({
   NEXT_PUBLIC_SITE_URL: true,
 });
 
-const optionalSecretSchema = z.preprocess(
-  (value) => (value === "" ? undefined : value),
-  z.string().min(16).optional(),
-);
-
 const brevoEnvSchema = serverEnvSchema
   .pick({
     BREVO_API_KEY: true,
@@ -35,7 +30,7 @@ const brevoEnvSchema = serverEnvSchema
     NEXT_PUBLIC_SITE_URL: true,
   })
   .extend({
-    PAYMENT_LINK_API_SECRET: optionalSecretSchema,
+    X_API_KEY: z.string().min(1),
   });
 
 const stripeCheckoutEnvSchema = serverEnvSchema.pick({
@@ -129,7 +124,7 @@ export function getBrevoEnv() {
       BREVO_SENDER_EMAIL: process.env.BREVO_SENDER_EMAIL,
       BREVO_SENDER_NAME: process.env.BREVO_SENDER_NAME,
       NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-      PAYMENT_LINK_API_SECRET: process.env.PAYMENT_LINK_API_SECRET,
+      X_API_KEY: process.env.X_API_KEY,
     });
 
     if (!parsed.success) {
