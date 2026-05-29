@@ -34,7 +34,7 @@ export default async function PaymentSuccessPage({
             <p className="mt-5 text-lg leading-8 text-slate-600">
               {alreadyPro
                 ? "Return to the mobile app and log in with the same email to access PRO content."
-                : "Your payment is being verified by Stripe. Once the webhook finishes, return to the mobile app and log in with the same email to access PRO content."}
+                : "Your payment is verified by Stripe. Return to the mobile app and log in with the same email to access PRO content."}
             </p>
             <Link
               href="/"

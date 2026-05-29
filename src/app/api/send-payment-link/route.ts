@@ -18,7 +18,8 @@ const sendPaymentLinkSchema = z
   .object({
     email: z.string().trim().toLowerCase().pipe(z.email()),
     name: z.preprocess(
-      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      (value) =>
+        typeof value === "string" && value.trim() === "" ? undefined : value,
       z.string().trim().min(1).max(80).optional(),
     ),
   })
@@ -199,15 +200,15 @@ function createEmailHtml({
         <div style="max-width:620px;margin:0 auto;padding:32px 20px;">
           <div style="background:#ffffff;border:1px solid #dbe3ef;border-radius:8px;padding:28px;">
             <p style="margin:0 0 16px;font-size:16px;line-height:24px;">${greeting}</p>
-            <h1 style="margin:0 0 16px;font-size:28px;line-height:34px;color:#020617;">Unlock EU Work Support PRO</h1>
+            <h1 style="margin:0 0 16px;font-size:28px;line-height:34px;color:#020617;">Create and Verify Your Account</h1>
             <p style="margin:0 0 20px;font-size:16px;line-height:26px;color:#475569;">
               Create your website account with this same email, complete the secure Stripe checkout, then return to the mobile app and log in with the same email to unlock PRO.
             </p>
             <p style="margin:0 0 24px;font-size:16px;line-height:26px;color:#475569;">
-              PRO is a one-time $50 payment for lifetime access to all features, pages, support, and available data.
+              PRO gives you lifetime access to all features, pages, support, and available data.
             </p>
             <a href="${safeLink}" style="display:inline-block;background:#0069c9;color:#ffffff;text-decoration:none;border-radius:8px;padding:14px 20px;font-weight:700;">
-              Continue to EU Work Support
+              Click to Verify your account.
             </a>
             <p style="margin:24px 0 0;font-size:13px;line-height:20px;color:#64748b;">
               If the button does not work, paste this link into your browser:<br />
@@ -220,7 +221,9 @@ function createEmailHtml({
   `;
 }
 
-async function readBrevoResponse(response: Response): Promise<BrevoEmailResponse> {
+async function readBrevoResponse(
+  response: Response,
+): Promise<BrevoEmailResponse> {
   const text = await response.text();
 
   if (!text) {
