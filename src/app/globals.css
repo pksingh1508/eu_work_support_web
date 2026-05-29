@@ -31,3 +31,25 @@ body {
   background: #d9f4e8;
   color: #0f172a;
 }
+
+.testimonial-marquee-track {
+  animation: testimonial-marquee-left-to-right 42s linear infinite;
+  will-change: transform;
+}
+
+@keyframes testimonial-marquee-left-to-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee-track {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}

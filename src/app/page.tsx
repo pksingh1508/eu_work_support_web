@@ -3,6 +3,7 @@ import { FaqSection } from "@/components/landing/faq-section";
 import { HeroSection } from "@/components/landing/hero-section";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { SiteHeader } from "@/components/landing/site-header";
+import { Testimonial } from "@/components/landing/Testimonial";
 import { WorkflowSection } from "@/components/landing/workflow-section";
 import { SiteFooter } from "@/components/site/site-footer";
 
@@ -12,6 +13,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
+        <Testimonial />
         <AppShowcase />
         <PricingSection />
         <WorkflowSection />
