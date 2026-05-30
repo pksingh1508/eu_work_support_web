@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
             ...(name ? { name } : {}),
           },
         ],
-        subject: "Unlock EU Work Support PRO",
+        subject: "Verify Your Account to Access all Features",
         htmlContent: createEmailHtml({ name, paymentLink }),
         textContent: createEmailText({ name, paymentLink }),
       }),
@@ -174,7 +174,7 @@ function createEmailText({
     "",
     "Your EU Work Support payment link is ready.",
     "",
-    "Create your website account with this same email, complete the secure Stripe checkout, then return to the mobile app and log in with the same email to unlock PRO.",
+    "Verify your account with this same email, complete the secure Stripe checkout, then return to the mobile app and log in with the same email to unlock PRO.",
     "",
     paymentLink,
     "",
@@ -200,9 +200,9 @@ function createEmailHtml({
         <div style="max-width:620px;margin:0 auto;padding:32px 20px;">
           <div style="background:#ffffff;border:1px solid #dbe3ef;border-radius:8px;padding:28px;">
             <p style="margin:0 0 16px;font-size:16px;line-height:24px;">${greeting}</p>
-            <h1 style="margin:0 0 16px;font-size:28px;line-height:34px;color:#020617;">Create and Verify Your Account</h1>
+            <h1 style="margin:0 0 16px;font-size:28px;line-height:34px;color:#020617;">Verify Your Account</h1>
             <p style="margin:0 0 20px;font-size:16px;line-height:26px;color:#475569;">
-              Create your website account with this same email, complete the secure Stripe checkout, then return to the mobile app and log in with the same email to unlock PRO.
+              Verify your account with this same email, complete the secure Stripe checkout, then return to the mobile app and log in with the same email to unlock PRO.
             </p>
             <p style="margin:0 0 24px;font-size:16px;line-height:26px;color:#475569;">
               PRO gives you lifetime access to all features, pages, support, and available data.
