@@ -38,21 +38,15 @@ export default async function PaymentSuccessPage({
                 : "Your payment is verified by Stripe. Return to the mobile app and log in with the same email to access PRO content."}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              {!alreadyPro ? (
-                <a
-                  href={mobileAppUrl}
-                  className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#0069c9] px-6 text-base font-semibold text-white transition hover:bg-[#0058aa]"
-                >
-                  Open EU Work Support app
-                </a>
-              ) : null}
+              <a
+                href={mobileAppUrl}
+                className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#0069c9] px-6 text-base font-semibold text-white transition hover:bg-[#0058aa]"
+              >
+                Open EU Work Support app
+              </a>
               <Link
                 href="/"
-                className={`inline-flex min-h-12 items-center justify-center rounded-lg px-6 text-base font-semibold transition ${
-                  alreadyPro
-                    ? "bg-[#0069c9] text-white hover:bg-[#0058aa]"
-                    : "border border-slate-300 bg-white text-slate-950 hover:border-slate-950"
-                }`}
+                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-slate-300 bg-white px-6 text-base font-semibold text-slate-950 transition hover:border-slate-950"
               >
                 Back to home
               </Link>
