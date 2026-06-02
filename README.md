@@ -75,21 +75,21 @@ EU Work Support helps people research European work preparation topics from a mo
 
 ## Main Routes
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Landing page |
-| `/sign-up` | Clerk sign-up page |
-| `/sign-in` | Clerk sign-in page |
-| `/checkout` | Protected checkout entry page |
-| `/payment/success` | Stripe success return page |
-| `/payment/cancel` | Stripe cancel return page |
-| `/privacy-policy` | Privacy policy |
-| `/terms-and-conditions` | Terms and conditions |
-| `/refund-and-cancellation-policy` | Refund and cancellation policy |
-| `/contact-us` | Support/contact page |
-| `/api/send-payment-link` | Protected Brevo email API |
-| `/api/stripe/create-checkout-session` | Protected Stripe Checkout API |
-| `/api/webhooks/stripe` | Stripe webhook endpoint |
+| Route                                 | Purpose                        |
+| ------------------------------------- | ------------------------------ |
+| `/`                                   | Landing page                   |
+| `/sign-up`                            | Clerk sign-up page             |
+| `/sign-in`                            | Clerk sign-in page             |
+| `/checkout`                           | Protected checkout entry page  |
+| `/payment/success`                    | Stripe success return page     |
+| `/payment/cancel`                     | Stripe cancel return page      |
+| `/privacy-policy`                     | Privacy policy                 |
+| `/terms-and-conditions`               | Terms and conditions           |
+| `/refund-and-cancellation-policy`     | Refund and cancellation policy |
+| `/contact-us`                         | Support/contact page           |
+| `/api/send-email`                     | Protected Brevo email API      |
+| `/api/stripe/create-checkout-session` | Protected Stripe Checkout API  |
+| `/api/webhooks/stripe`                | Stripe webhook endpoint        |
 
 ## Environment Variables
 
@@ -127,7 +127,7 @@ SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 ```
 
-`X_API_KEY` protects `/api/send-payment-link`. The caller must send it in the request header:
+`X_API_KEY` protects `/api/send-email`. The caller must send it in the request header:
 
 ```http
 x-api-key: your_api_key_here
@@ -172,7 +172,7 @@ Required event types:
 Endpoint:
 
 ```http
-POST /api/send-payment-link
+POST /api/send-email
 ```
 
 Headers:

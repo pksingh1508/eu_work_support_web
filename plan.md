@@ -71,7 +71,7 @@ Done when: the first screen looks like a real product website, copy is accurate,
 
 Goal: create a backend endpoint that sends the website link to a mobile-app user by email.
 
-1. Create `src/app/api/send-payment-link/route.ts`.
+1. Create `src/app/api/send-email/route.ts`.
 2. Accept only `POST` requests with a validated JSON body:
    - `email`
    - optional `name`
