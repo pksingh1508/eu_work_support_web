@@ -22,7 +22,7 @@ export default async function RequestSignInPage() {
             EU Work Support
           </Link>
 
-          <div className="mt-6 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_28px_80px_-38px_rgba(15,23,42,0.45)] sm:p-10">
+          <div className="mt-6 rounded-4xl border border-slate-200 bg-white p-8 shadow-[0_28px_80px_-38px_rgba(15,23,42,0.45)] sm:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
               Account Access
             </p>

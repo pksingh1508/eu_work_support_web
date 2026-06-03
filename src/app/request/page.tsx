@@ -79,11 +79,11 @@ export default function RequestHome() {
               Mobile-first support for European work planning
             </div>
 
-            <h1 className="mt-7 max-w-[21rem] text-3xl font-semibold leading-[1.05] tracking-tight text-slate-950 sm:max-w-3xl sm:text-6xl sm:leading-[0.96] lg:text-7xl">
+            <h1 className="mt-7 max-w-84 text-3xl font-semibold leading-[1.05] tracking-tight text-slate-950 sm:max-w-3xl sm:text-6xl sm:leading-[0.96] lg:text-7xl">
               Find the European work path that fits your next move.
             </h1>
 
-            <p className="mt-6 max-w-[21rem] text-base leading-7 text-slate-600 sm:max-w-2xl sm:text-xl sm:leading-8">
+            <p className="mt-6 max-w-84 text-base leading-7 text-slate-600 sm:max-w-2xl sm:text-xl sm:leading-8">
               EU Work Support brings country details, visa checklists, and
               relocation guidance into a clean mobile experience so users can
               browse, compare, and revisit decisions with confidence.
@@ -116,14 +116,14 @@ export default function RequestHome() {
             </div>
           </div>
 
-          <div id="screens" className="relative min-h-[480px] lg:min-h-[580px]">
+          <div id="screens" className="relative min-h-120 lg:min-h-145">
             <div className="absolute inset-x-12 bottom-10 top-16 rounded-[3rem] border border-white/70 bg-white/45 shadow-[0_42px_120px_-70px_rgba(15,23,42,0.75)] backdrop-blur-md" />
             <div className="absolute inset-x-16 bottom-0 h-24 rounded-full bg-slate-950/10 blur-3xl" />
 
             {phoneScreens.map((screen) => (
               <div
                 key={screen.src}
-                className={`absolute overflow-hidden rounded-[2rem] border-[10px] border-slate-950 bg-slate-950 shadow-[0_34px_70px_-34px_rgba(15,23,42,0.9)] ${screen.className}`}
+                className={`absolute overflow-hidden rounded-4xl border-10 border-slate-950 bg-slate-950 shadow-[0_34px_70px_-34px_rgba(15,23,42,0.9)] ${screen.className}`}
               >
                 <Image
                   src={screen.src}

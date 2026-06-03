@@ -155,7 +155,8 @@ async function parseRequestBody(request: NextRequest) {
 }
 
 function createPaymentLink(siteUrl: string, email: string) {
-  const url = new URL("/sign-up", siteUrl);
+  // change this later for taking the user to the main website.
+  const url = new URL("/request/sign-up", siteUrl);
   url.searchParams.set("email", email);
   return url.toString();
 }
