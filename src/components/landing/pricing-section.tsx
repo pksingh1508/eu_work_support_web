@@ -17,12 +17,12 @@ export function PricingSection() {
             One upgrade. A lifetime of access.
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Start exploring for free, then unlock every guide and support feature with one secure payment.
+            Unlock every guide, page, and support feature with one secure payment. No subscription and no recurring fees.
           </p>
         </m.div>
 
-        <m.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="mx-auto mt-12 grid max-w-5xl gap-5 lg:grid-cols-2 lg:items-stretch">
-          {pricingPlans.map((plan, index) => (
+        <m.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="mx-auto mt-12 max-w-2xl">
+          {pricingPlans.map((plan) => (
             <m.article
               key={plan.name}
               variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
@@ -36,7 +36,6 @@ export function PricingSection() {
               {plan.featured ? <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#3979e8]/30 blur-[55px]" /> : null}
               <div className="flex items-start justify-between gap-4">
                 <div className="relative">
-                  <span className={`mb-5 flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black ${plan.featured ? "bg-white/10 text-[#78e0be]" : "bg-[#eef4ff] text-[#3979e8]"}`}>{index + 1}</span>
                   <h3 className="text-2xl font-black tracking-[-0.03em]">{plan.name}</h3>
                   <p
                     className={`mt-2 leading-7 ${
@@ -48,7 +47,7 @@ export function PricingSection() {
                 </div>
                 {plan.featured ? (
                   <span className="relative rounded-full bg-[#dff8ef] px-3 py-2 text-xs font-extrabold uppercase tracking-[0.08em] text-[#11684f]">
-                    Best value
+                    Lifetime access
                   </span>
                 ) : null}
               </div>
@@ -60,9 +59,9 @@ export function PricingSection() {
                 ) : null}
               </div>
 
-              <ul className="mt-8 space-y-3.5">
+              <ul className="mt-8 grid gap-3.5 sm:grid-cols-2">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex gap-3 leading-6">
+                  <li key={feature} className="flex gap-3 leading-6 last:sm:col-span-2">
                     <span aria-hidden="true" className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-black ${plan.featured ? "bg-[#78e0be]/15 text-[#78e0be]" : "bg-[#eaf2ff] text-[#3979e8]"}`}>✓</span>
                     <span className={plan.featured ? "text-slate-100" : "text-slate-700"}>
                       {feature}

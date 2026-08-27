@@ -50,20 +50,6 @@ export const featureHighlights = [
 
 export const pricingPlans = [
   {
-    name: "Free",
-    price: "$0",
-    description: "Only basic access to the home page.",
-    cta: "Start free",
-    href: "/sign-up",
-    featured: false,
-    features: [
-      "Home page access only",
-      "Every other page is locked",
-      "No support",
-      "No complete data",
-    ],
-  },
-  {
     name: "PRO",
     price: "$50",
     description: "One-time fee. Lifetime access.",
@@ -75,7 +61,7 @@ export const pricingPlans = [
       "Access to every page",
       "Support included",
       "All available data unlocked",
-      "One-time fee with lifetime access",
+      "Lifetime access with one payment",
     ],
   },
 ];
