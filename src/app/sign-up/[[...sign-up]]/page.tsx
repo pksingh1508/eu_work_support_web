@@ -14,9 +14,9 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
 
   return (
     <AuthShell
-      eyebrow="Create your account"
-      title="Create an Account using Email."
-      subtitle="After sign-up, you will continue to checkout."
+      eyebrow="Join EU Work Support"
+      title="Create your account. Start with clarity."
+      subtitle="Use the same email as the mobile app. After your account is verified, we’ll take you directly to secure checkout."
     >
       <SignUp
         appearance={clerkAppearance}

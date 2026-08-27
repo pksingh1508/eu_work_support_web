@@ -41,6 +41,12 @@ body {
   mask-image: linear-gradient(to bottom, black, transparent 88%);
 }
 
+.auth-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom right, black, transparent 78%);
+}
+
 .text-gradient {
   background: linear-gradient(110deg, #3979e8 8%, #6658d9 55%, #269a79 100%);
   -webkit-background-clip: text;

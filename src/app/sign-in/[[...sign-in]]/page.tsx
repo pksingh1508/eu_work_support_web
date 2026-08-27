@@ -15,8 +15,8 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
   return (
     <AuthShell
       eyebrow="Welcome back"
-      title="Sign in before continuing to payment."
-      subtitle="Your payment will upgrade the Clerk account connected to this email, so the mobile app can unlock PRO after you log in."
+      title="Pick up where you left off."
+      subtitle="Sign in with the same email you use in the mobile app. Your account keeps website payment and mobile PRO access connected."
     >
       <SignIn
         appearance={clerkAppearance}
