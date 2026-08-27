@@ -74,8 +74,7 @@ export const workflowSteps = [
   },
   {
     title: "Pay the one-time fee",
-    description:
-      "Complete the one-time payment securely through Stripe.",
+    description: "Complete the one-time payment.",
   },
   {
     title: "Get lifetime access",

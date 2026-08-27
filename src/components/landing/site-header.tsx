@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, LayoutGroup, m, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  m,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { appName, navigationItems } from "./landing-content";
 
@@ -24,7 +31,9 @@ export function SiteHeader() {
     setScrolled(value > 20);
 
     if (pendingHrefRef.current) {
-      const target = document.querySelector<HTMLElement>(pendingHrefRef.current);
+      const target = document.querySelector<HTMLElement>(
+        pendingHrefRef.current,
+      );
       if (target && Math.abs(target.getBoundingClientRect().top - 90) < 36) {
         pendingHrefRef.current = null;
       } else {
@@ -68,7 +77,9 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
-    const hashMatchesNavigation = navigationItems.some((item) => item.href === window.location.hash);
+    const hashMatchesNavigation = navigationItems.some(
+      (item) => item.href === window.location.hash,
+    );
     if (hashMatchesNavigation) setActiveHref(window.location.hash);
 
     return () => {
@@ -86,14 +97,21 @@ export function SiteHeader() {
       <m.header
         layoutRoot
         animate={{
-          backgroundColor: scrolled ? "rgba(250,252,255,0.9)" : "rgba(250,252,255,0.64)",
-          boxShadow: scrolled ? "0 10px 40px rgba(16,29,54,0.08)" : "0 0 0 rgba(0,0,0,0)",
+          backgroundColor: scrolled
+            ? "rgba(250,252,255,0.9)"
+            : "rgba(250,252,255,0.64)",
+          boxShadow: scrolled
+            ? "0 10px 40px rgba(16,29,54,0.08)"
+            : "0 0 0 rgba(0,0,0,0)",
         }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         className="fixed inset-x-0 top-0 z-[110] border-b border-[#101d36]/[0.07] backdrop-blur-xl"
       >
         <div className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between gap-4 px-5 sm:h-[78px] sm:px-8">
-          <Link href="/" className="group flex min-w-0 items-center gap-3 text-[#101d36]">
+          <Link
+            href="/"
+            className="group flex min-w-0 items-center gap-3 text-[#101d36]"
+          >
             <m.span
               whileHover={{ rotate: -5, scale: 1.04 }}
               className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-[13px] bg-[#3979e8] text-[13px] font-black tracking-[-0.03em] text-white shadow-[0_8px_22px_rgba(57,121,232,0.3)]"
@@ -106,7 +124,10 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-1 rounded-full border border-[#101d36]/[0.07] bg-white/70 p-1.5 shadow-sm lg:flex">
+          <nav
+            aria-label="Main navigation"
+            className="hidden items-center gap-1 rounded-full border border-[#101d36]/[0.07] bg-white/70 p-1.5 shadow-sm lg:flex"
+          >
             <LayoutGroup id="desktop-navigation">
               {navigationItems.map((item) => {
                 const isActive = activeHref === item.href;
@@ -117,10 +138,16 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
                     onClick={() => selectNavigationItem(item.href)}
-                    whileHover={isActive || prefersReducedMotion ? undefined : { y: -1 }}
-                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+                    whileHover={
+                      isActive || prefersReducedMotion ? undefined : { y: -1 }
+                    }
+                    whileTap={
+                      prefersReducedMotion ? undefined : { scale: 0.97 }
+                    }
                     className={`relative isolate overflow-hidden rounded-full px-4 py-2 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3979e8] ${
-                      isActive ? "text-white" : "text-slate-600 hover:bg-[#eef4ff] hover:text-[#245fc7]"
+                      isActive
+                        ? "text-white"
+                        : "text-slate-600 hover:bg-[#eef4ff] hover:text-[#245fc7]"
                     }`}
                   >
                     {isActive ? (
@@ -132,7 +159,9 @@ export function SiteHeader() {
                       />
                     ) : null}
                     <m.span
-                      animate={isActive ? { y: -1, scale: 1.015 } : { y: 0, scale: 1 }}
+                      animate={
+                        isActive ? { y: -1, scale: 1.015 } : { y: 0, scale: 1 }
+                      }
                       transition={labelTransition}
                       className="relative inline-block"
                     >
@@ -146,18 +175,18 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <m.a
-              href="https://play.google.com/store/apps/details?id=com.euworksupport.app"
-              target="_blank"
-              rel="noreferrer"
+              href="/sign-up"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
               className="hidden min-h-11 items-center justify-center rounded-full bg-[#101d36] px-5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(16,29,54,0.16)] sm:inline-flex"
             >
-              Download app
+              Create Account
             </m.a>
             <button
               type="button"
-              aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-label={
+                menuOpen ? "Close navigation menu" : "Open navigation menu"
+              }
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
               onClick={() => setMenuOpen((open) => !open)}
@@ -165,9 +194,24 @@ export function SiteHeader() {
             >
               <span className="sr-only">Menu</span>
               <span className="relative h-4 w-5">
-                <m.span animate={menuOpen ? { y: 7, rotate: 45 } : { y: 1, rotate: 0 }} className="absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current" />
-                <m.span animate={menuOpen ? { opacity: 0, x: 4 } : { opacity: 1, x: 0 }} className="absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-current" />
-                <m.span animate={menuOpen ? { y: -7, rotate: -45 } : { y: -1, rotate: 0 }} className="absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-current" />
+                <m.span
+                  animate={
+                    menuOpen ? { y: 7, rotate: 45 } : { y: 1, rotate: 0 }
+                  }
+                  className="absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current"
+                />
+                <m.span
+                  animate={
+                    menuOpen ? { opacity: 0, x: 4 } : { opacity: 1, x: 0 }
+                  }
+                  className="absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-current"
+                />
+                <m.span
+                  animate={
+                    menuOpen ? { y: -7, rotate: -45 } : { y: -1, rotate: 0 }
+                  }
+                  className="absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-current"
+                />
               </span>
             </button>
           </div>
@@ -204,8 +248,12 @@ export function SiteHeader() {
                       href={item.href}
                       initial={{ opacity: 0, x: -12 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: prefersReducedMotion ? 0 : 0.05 + index * 0.04 }}
-                      whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
+                      transition={{
+                        delay: prefersReducedMotion ? 0 : 0.05 + index * 0.04,
+                      }}
+                      whileTap={
+                        prefersReducedMotion ? undefined : { scale: 0.985 }
+                      }
                       aria-current={isActive ? "location" : undefined}
                       onClick={() => {
                         selectNavigationItem(item.href);
@@ -222,7 +270,10 @@ export function SiteHeader() {
                         />
                       ) : null}
                       <m.span
-                        animate={{ color: isActive ? "#ffffff" : "#101d36", x: isActive ? 2 : 0 }}
+                        animate={{
+                          color: isActive ? "#ffffff" : "#101d36",
+                          x: isActive ? 2 : 0,
+                        }}
                         transition={labelTransition}
                       >
                         {item.label}
@@ -243,10 +294,19 @@ export function SiteHeader() {
                 })}
               </LayoutGroup>
               <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3">
-                <Link href="/sign-up" onClick={() => setMenuOpen(false)} className="flex min-h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-bold text-[#101d36]">
+                <Link
+                  href="/sign-up"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex min-h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-bold text-[#101d36]"
+                >
                   Get PRO
                 </Link>
-                <a href="https://play.google.com/store/apps/details?id=com.euworksupport.app" target="_blank" rel="noreferrer" className="flex min-h-12 items-center justify-center rounded-2xl bg-[#3979e8] text-sm font-bold text-white">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.euworksupport.app"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex min-h-12 items-center justify-center rounded-2xl bg-[#3979e8] text-sm font-bold text-white"
+                >
                   Download
                 </a>
               </div>
