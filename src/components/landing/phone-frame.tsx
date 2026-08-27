@@ -6,6 +6,7 @@ type PhoneFrameProps = {
   eager?: boolean;
   label?: string;
   src: string;
+  darkLabel?: boolean;
 };
 
 export function PhoneFrame({
@@ -14,10 +15,11 @@ export function PhoneFrame({
   eager = false,
   label,
   src,
+  darkLabel = false,
 }: PhoneFrameProps) {
   return (
     <figure className={`group ${className}`}>
-      <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-slate-950 p-2 shadow-[0_24px_70px_rgba(15,23,42,0.18)]">
+      <div className="overflow-hidden rounded-[30px] border border-white/15 bg-[#081225] p-2 shadow-[0_28px_70px_rgba(4,10,24,0.28)] ring-1 ring-[#101d36]/10">
         <div className="overflow-hidden rounded-[22px] bg-white">
           <Image
             src={src}
@@ -32,7 +34,7 @@ export function PhoneFrame({
         </div>
       </div>
       {label ? (
-        <figcaption className="mt-3 text-center text-sm font-semibold text-slate-500">
+        <figcaption className={`mt-3 text-center text-sm font-semibold ${darkLabel ? "text-slate-300" : "text-slate-500"}`}>
           {label}
         </figcaption>
       ) : null}

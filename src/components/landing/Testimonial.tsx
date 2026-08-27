@@ -1,30 +1,41 @@
+"use client";
+
 import Image from "next/image";
 import { testimonialData } from "@/constant/testimonialData";
+import { m, useReducedMotion } from "motion/react";
 
 const marqueeItems = [...testimonialData, ...testimonialData];
 
 export function Testimonial() {
-  return (
-    <section className="bg-[#f6f8fc] px-5 py-16 text-white sm:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-10 max-w-2xl">
-          <p className="text-sm font-semibold uppercase text-[#0069c9]">
-            User stories
-          </p>
-          <h2 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl text-slate-950">
-            Stories from our users.
-          </h2>
-        </div>
+  const reduceMotion = useReducedMotion();
 
-        <div className="overflow-hidden rounded-[2rem] border border-white/35 bg-[#c0d4f0] py-6">
-          <div className="testimonial-marquee-track flex w-max gap-6">
+  return (
+    <section className="overflow-hidden bg-[#f1f6ff] py-20 text-white lg:py-24">
+      <div className="mx-auto max-w-[1240px] px-5 sm:px-8">
+        <m.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <p className="section-kicker">Real people, real moves</p>
+            <h2 className="section-title mt-4">Support that travels with you.</h2>
+          </div>
+          <p className="max-w-sm leading-7 text-slate-600">Practical guidance built around the questions people ask when planning work abroad.</p>
+        </m.div>
+
+        <div className="relative overflow-hidden rounded-[32px] bg-[#101d36] py-6 shadow-[0_28px_80px_rgba(16,29,54,.16)]">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#101d36] to-transparent sm:w-28" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#101d36] to-transparent sm:w-28" />
+          <m.div
+            className="flex w-max gap-5 px-3"
+            animate={reduceMotion ? undefined : { x: ["-50%", "0%"] }}
+            transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
+          >
             {marqueeItems.map((testimonial, index) => (
-              <article
+              <m.article
                 key={`${testimonial.imageUrl}-${index}`}
                 aria-hidden={index >= testimonialData.length}
-                className="w-[240px] shrink-0 rounded-[1.5rem] border border-white/35 bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.18)] p-4 sm:w-[280px]"
+                whileHover={{ y: -6, scale: 1.015 }}
+                className="w-[250px] shrink-0 rounded-[24px] border border-white/10 bg-white/[0.07] p-3.5 text-white backdrop-blur sm:w-[290px]"
               >
-                <div className="relative aspect-[16/9] overflow-hidden rounded-[1.15rem] border border-white/30 bg-slate-900">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-[18px] bg-slate-900">
                   <Image
                     src={testimonial.imageUrl}
                     alt="User image"
@@ -33,12 +44,12 @@ export function Testimonial() {
                     className="object-cover"
                   />
                 </div>
-                <p className="mt-6 min-h-[96px] text-base font-medium leading-7 text-slate-200">
+                <p className="mt-5 min-h-[96px] text-sm font-medium leading-7 text-slate-200 sm:text-base">
                   {testimonial.description}
                 </p>
-              </article>
+              </m.article>
             ))}
-          </div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -1,33 +1,33 @@
+"use client";
+
 import { workflowSteps } from "./landing-content";
+import { m } from "motion/react";
 
 export function WorkflowSection() {
   return (
-    <section id="how-it-works" className="bg-white px-5 py-20 sm:px-8 lg:py-24">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <p className="text-sm font-semibold uppercase text-[#0069c9]">
-            Web payment flow
-          </p>
-          <h2 className="mt-4 text-4xl font-bold leading-tight text-slate-950 sm:text-5xl">
-            From the mobile app to PRO access in four steps.
-          </h2>
+    <section id="how-it-works" className="bg-white px-5 py-24 sm:px-8 lg:py-32">
+      <div className="mx-auto grid max-w-[1240px] gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+        <m.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} className="lg:sticky lg:top-32 lg:self-start">
+          <p className="section-kicker">How it works</p>
+          <h2 className="section-title mt-4">Four small steps to full access.</h2>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            The website handles account creation and payment. The mobile app
-            uses the same email to recognize your upgraded plan.
+            The website handles your account and secure payment. The app uses
+            the same email to recognize your upgrade—simple and connected.
           </p>
-        </div>
+          <a href="#pricing" className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-[#245fc7]">See pricing <span aria-hidden="true">→</span></a>
+        </m.div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <m.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="relative grid gap-4 sm:grid-cols-2">
           {workflowSteps.map((step, index) => (
-            <article key={step.title} className="rounded-lg border border-slate-200 p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#e8f2ff] text-sm font-bold text-[#0069c9]">
-                {index + 1}
+            <m.article key={step.title} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }} whileHover={{ y: -5 }} className="group rounded-[26px] border border-[#101d36]/[0.08] bg-[#fafdff] p-6 sm:p-7">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#3979e8] text-sm font-black text-white shadow-[0_9px_22px_rgba(57,121,232,.25)]">
+                0{index + 1}
               </span>
-              <h3 className="mt-5 text-xl font-bold text-slate-950">{step.title}</h3>
+              <h3 className="mt-6 text-xl font-extrabold tracking-[-0.025em] text-[#101d36]">{step.title}</h3>
               <p className="mt-3 leading-7 text-slate-600">{step.description}</p>
-            </article>
+            </m.article>
           ))}
-        </div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,35 +1,43 @@
+"use client";
+
 import Link from "next/link";
 import { pricingPlans } from "./landing-content";
+import { m } from "motion/react";
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="bg-[#f6f8fc] px-5 py-20 sm:px-8 lg:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase text-[#0069c9]">
+    <section id="pricing" className="relative overflow-hidden bg-[#f1f6ff] px-5 py-24 sm:px-8 lg:py-32">
+      <div className="absolute right-[-12rem] top-24 h-96 w-96 rounded-full bg-[#77dbbd]/20 blur-[90px]" />
+      <div className="mx-auto max-w-[1120px]">
+        <m.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">
             Simple pricing
           </p>
-          <h2 className="mt-4 text-4xl font-bold leading-tight text-slate-950 sm:text-5xl">
-            Free is limited. PRO unlocks everything.
+          <h2 className="section-title mt-4">
+            One upgrade. A lifetime of access.
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Pay once on the website and keep lifetime access in the mobile app.
+            Start exploring for free, then unlock every guide and support feature with one secure payment.
           </p>
-        </div>
+        </m.div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-2">
-          {pricingPlans.map((plan) => (
-            <article
+        <m.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="mx-auto mt-12 grid max-w-5xl gap-5 lg:grid-cols-2 lg:items-stretch">
+          {pricingPlans.map((plan, index) => (
+            <m.article
               key={plan.name}
-              className={`rounded-lg border p-7 ${
+              variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } } }}
+              whileHover={{ y: -6 }}
+              className={`relative overflow-hidden rounded-[30px] border p-7 sm:p-9 ${
                 plan.featured
-                  ? "border-[#0069c9] bg-slate-950 text-white shadow-[0_24px_70px_rgba(15,23,42,0.18)]"
-                  : "border-slate-200 bg-white text-slate-950"
+                  ? "border-[#3979e8]/50 bg-[#101d36] text-white shadow-[0_28px_80px_rgba(16,29,54,0.22)]"
+                  : "border-white bg-white text-[#101d36] shadow-[0_18px_55px_rgba(16,29,54,.07)]"
               }`}
             >
+              {plan.featured ? <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#3979e8]/30 blur-[55px]" /> : null}
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-bold">{plan.name}</h3>
+                <div className="relative">
+                  <span className={`mb-5 flex h-11 w-11 items-center justify-center rounded-2xl text-sm font-black ${plan.featured ? "bg-white/10 text-[#78e0be]" : "bg-[#eef4ff] text-[#3979e8]"}`}>{index + 1}</span>
+                  <h3 className="text-2xl font-black tracking-[-0.03em]">{plan.name}</h3>
                   <p
                     className={`mt-2 leading-7 ${
                       plan.featured ? "text-slate-300" : "text-slate-600"
@@ -39,28 +47,23 @@ export function PricingSection() {
                   </p>
                 </div>
                 {plan.featured ? (
-                  <span className="rounded-lg bg-[#d9f4e8] px-3 py-2 text-sm font-bold text-[#074d35]">
+                  <span className="relative rounded-full bg-[#dff8ef] px-3 py-2 text-xs font-extrabold uppercase tracking-[0.08em] text-[#11684f]">
                     Best value
                   </span>
                 ) : null}
               </div>
 
               <div className="mt-8 flex items-end gap-2">
-                <span className="text-5xl font-bold">{plan.price}</span>
+                <span className="text-6xl font-black tracking-[-0.06em]">{plan.price}</span>
                 {plan.featured ? (
                   <span className="pb-2 text-slate-300">one-time</span>
                 ) : null}
               </div>
 
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-8 space-y-3.5">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex gap-3 leading-6">
-                    <span
-                      aria-hidden="true"
-                      className={`mt-2 h-2 w-2 shrink-0 rounded-full ${
-                        plan.featured ? "bg-[#45d19a]" : "bg-slate-400"
-                      }`}
-                    />
+                    <span aria-hidden="true" className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-black ${plan.featured ? "bg-[#78e0be]/15 text-[#78e0be]" : "bg-[#eaf2ff] text-[#3979e8]"}`}>✓</span>
                     <span className={plan.featured ? "text-slate-100" : "text-slate-700"}>
                       {feature}
                     </span>
@@ -70,17 +73,18 @@ export function PricingSection() {
 
               <Link
                 href={plan.href}
-                className={`mt-8 inline-flex min-h-12 w-full items-center justify-center rounded-lg px-5 text-base font-semibold transition ${
+                className={`relative mt-9 inline-flex min-h-13 w-full items-center justify-center rounded-2xl px-5 text-base font-bold transition-colors ${
                   plan.featured
-                    ? "bg-white text-slate-950 hover:bg-[#d9f4e8]"
-                    : "border border-slate-300 bg-white text-slate-950 hover:border-slate-950"
+                    ? "bg-[#5bd6ac] text-[#101d36] hover:bg-[#78e0be]"
+                    : "border border-slate-200 bg-[#101d36] text-white hover:bg-[#3979e8]"
                 }`}
               >
                 {plan.cta}
               </Link>
-            </article>
+            </m.article>
           ))}
-        </div>
+        </m.div>
+        <p className="mt-7 text-center text-sm text-slate-500">Secure checkout powered by Stripe · No recurring subscription</p>
       </div>
     </section>
   );
