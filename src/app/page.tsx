@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#fafdff]">
       <SiteHeader />
-      <main className="pt-[72px] sm:pt-[78px]">
+      <main className="pt-18 sm:pt-19.5">
         <HeroSection />
         <Testimonial />
         <AppShowcase />

@@ -9,9 +9,9 @@ export const navigationItems = [
 
 export const appScreens = [
   {
-    src: "/assets/profile.jpg",
-    alt: "EU Work Support profile screen showing account and support options",
-    label: "Profile",
+    src: "/assets/home.jpg",
+    alt: "EU Work Support home screen showing main features",
+    label: "Home",
   },
   {
     src: "/assets/search.jpg",
