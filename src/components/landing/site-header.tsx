@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, LayoutGroup, m, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { appName, navigationItems } from "./landing-content";
 
@@ -11,7 +11,14 @@ export function SiteHeader() {
   const [activeHref, setActiveHref] = useState("");
   const pendingHrefRef = useRef<string | null>(null);
   const pendingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollY, scrollYProgress } = useScroll();
+  const activePillTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 500, damping: 38, mass: 0.65 };
+  const labelTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 480, damping: 30, mass: 0.6 };
 
   useMotionValueEvent(scrollY, "change", (value) => {
     setScrolled(value > 20);
@@ -100,22 +107,41 @@ export function SiteHeader() {
           </Link>
 
           <nav aria-label="Main navigation" className="hidden items-center gap-1 rounded-full border border-[#101d36]/[0.07] bg-white/70 p-1.5 shadow-sm lg:flex">
-            {navigationItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                aria-current={activeHref === item.href ? "location" : undefined}
-                onClick={() => selectNavigationItem(item.href)}
-                className={`relative isolate overflow-hidden rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3979e8] ${
-                  activeHref === item.href ? "text-white" : "text-slate-600 hover:bg-[#eef4ff] hover:text-[#245fc7]"
-                }`}
-              >
-                {activeHref === item.href ? (
-                  <m.span layoutId="active-navigation-pill" className="absolute inset-0 -z-10 rounded-full bg-[#3979e8] shadow-[0_7px_18px_rgba(57,121,232,.25)]" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
-                ) : null}
-                <span className="relative">{item.label}</span>
-              </a>
-            ))}
+            <LayoutGroup id="desktop-navigation">
+              {navigationItems.map((item) => {
+                const isActive = activeHref === item.href;
+
+                return (
+                  <m.a
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive ? "location" : undefined}
+                    onClick={() => selectNavigationItem(item.href)}
+                    whileHover={isActive || prefersReducedMotion ? undefined : { y: -1 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+                    className={`relative isolate overflow-hidden rounded-full px-4 py-2 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3979e8] ${
+                      isActive ? "text-white" : "text-slate-600 hover:bg-[#eef4ff] hover:text-[#245fc7]"
+                    }`}
+                  >
+                    {isActive ? (
+                      <m.span
+                        layoutId="active-navigation-pill"
+                        initial={false}
+                        transition={activePillTransition}
+                        className="absolute inset-0 -z-10 rounded-full bg-[#3979e8] shadow-[0_7px_18px_rgba(57,121,232,.25)]"
+                      />
+                    ) : null}
+                    <m.span
+                      animate={isActive ? { y: -1, scale: 1.015 } : { y: 0, scale: 1 }}
+                      transition={labelTransition}
+                      className="relative inline-block"
+                    >
+                      {item.label}
+                    </m.span>
+                  </m.a>
+                );
+              })}
+            </LayoutGroup>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -168,25 +194,54 @@ export function SiteHeader() {
               onClick={(event) => event.stopPropagation()}
               className="mx-auto max-w-lg overflow-hidden rounded-[26px] border border-white/70 bg-[#fafdff] p-3 shadow-[0_28px_90px_rgba(16,29,54,0.24)]"
             >
-              {navigationItems.map((item, index) => (
-                <m.a
-                  key={item.href}
-                  href={item.href}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + index * 0.04 }}
-                  aria-current={activeHref === item.href ? "location" : undefined}
-                  onClick={() => {
-                    selectNavigationItem(item.href);
-                    setMenuOpen(false);
-                  }}
-                  className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-bold ${
-                    activeHref === item.href ? "bg-[#3979e8] text-white shadow-[0_8px_22px_rgba(57,121,232,.2)]" : "text-[#101d36] hover:bg-[#eef4ff]"
-                  }`}
-                >
-                  {item.label}<span aria-hidden="true" className={activeHref === item.href ? "text-[#bcd1ff]" : "text-[#3979e8]"}>{activeHref === item.href ? "●" : "↗"}</span>
-                </m.a>
-              ))}
+              <LayoutGroup id="mobile-navigation-links">
+                {navigationItems.map((item, index) => {
+                  const isActive = activeHref === item.href;
+
+                  return (
+                    <m.a
+                      key={item.href}
+                      href={item.href}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: prefersReducedMotion ? 0 : 0.05 + index * 0.04 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.985 }}
+                      aria-current={isActive ? "location" : undefined}
+                      onClick={() => {
+                        selectNavigationItem(item.href);
+                        setMenuOpen(false);
+                      }}
+                      className="relative isolate flex items-center justify-between overflow-hidden rounded-2xl px-4 py-3.5 text-base font-bold text-[#101d36] hover:bg-[#eef4ff]"
+                    >
+                      {isActive ? (
+                        <m.span
+                          layoutId="mobile-active-navigation-pill"
+                          initial={false}
+                          transition={activePillTransition}
+                          className="absolute inset-0 -z-10 rounded-2xl bg-[#3979e8] shadow-[0_8px_22px_rgba(57,121,232,.2)]"
+                        />
+                      ) : null}
+                      <m.span
+                        animate={{ color: isActive ? "#ffffff" : "#101d36", x: isActive ? 2 : 0 }}
+                        transition={labelTransition}
+                      >
+                        {item.label}
+                      </m.span>
+                      <m.span
+                        aria-hidden="true"
+                        animate={
+                          isActive
+                            ? { color: "#bcd1ff", rotate: 0, scale: 0.8 }
+                            : { color: "#3979e8", rotate: 0, scale: 1 }
+                        }
+                        transition={labelTransition}
+                      >
+                        {isActive ? "●" : "↗"}
+                      </m.span>
+                    </m.a>
+                  );
+                })}
+              </LayoutGroup>
               <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3">
                 <Link href="/sign-up" onClick={() => setMenuOpen(false)} className="flex min-h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-bold text-[#101d36]">
                   Get PRO
