@@ -68,24 +68,19 @@ export const pricingPlans = [
 
 export const workflowSteps = [
   {
-    title: "Request your link",
-    description:
-      "Enter your email in the mobile app and receive the secure website link in your inbox.",
-  },
-  {
     title: "Create your account",
     description:
-      "Use the same email on the website so your Clerk account connects to your mobile app access.",
+      "Use your email to create an account. Once your account is created, you will be redirected to the checkout page.",
   },
   {
-    title: "Pay once",
+    title: "Pay the one-time fee",
     description:
-      "Complete the $50 PRO payment through Stripe on the website, outside the mobile app.",
+      "Complete the one-time payment securely through Stripe.",
   },
   {
-    title: "Unlock in the app",
+    title: "Get lifetime access",
     description:
-      "Return to the mobile app, log in with the same email, and access the PRO content.",
+      "Use the same email to sign in to the app and access all PRO content for life.",
   },
 ];
 
