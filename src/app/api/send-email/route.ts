@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const paymentLink = createPaymentLink(env.NEXT_PUBLIC_SITE_URL, email);
+  const paymentLink = createPaymentLink(env.NEXT_PUBLIC_SITE_URL);
 
   try {
     const brevoResponse = await fetch(BREVO_SEND_EMAIL_URL, {
@@ -154,10 +154,9 @@ async function parseRequestBody(request: NextRequest) {
   }
 }
 
-function createPaymentLink(siteUrl: string, email: string) {
+function createPaymentLink(siteUrl: string) {
   // change this later for taking the user to the main website.
-  const url = new URL("/sign-up", siteUrl);
-  url.searchParams.set("email", email);
+  const url = new URL("/#how-to-get-access", siteUrl);
   return url.toString();
 }
 
