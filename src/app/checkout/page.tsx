@@ -41,7 +41,7 @@ export default async function CheckoutPage() {
               </Link>
             </header>
 
-            <div className="my-auto grid items-stretch gap-5 py-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-6 lg:py-16">
+            <div className="my-auto grid grid-cols-1 items-stretch gap-5 py-12 lg:grid-cols-2 lg:gap-6 lg:py-16">
               <div className="relative overflow-hidden rounded-[32px] bg-[#101d36] p-7 text-white shadow-[0_32px_90px_rgba(16,29,54,.2)] sm:p-10 lg:p-12">
                 <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#3979e8]/35 blur-[70px]" />
                 <div className="absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[#5bd6ac]/15 blur-[80px]" />
@@ -51,7 +51,7 @@ export default async function CheckoutPage() {
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#5bd6ac]/20 text-[11px]">✓</span>
                     PRO access active
                   </div>
-                  <h1 className="mt-7 max-w-[10ch] text-[clamp(3rem,6vw,5.4rem)] font-black leading-[0.94] tracking-[-0.065em]">
+                  <h1 className="mt-7 max-w-[10ch] text-4xl font-black leading-[0.96] tracking-[-0.055em] sm:text-5xl xl:text-6xl">
                     You&apos;re already PRO.
                   </h1>
                   <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
