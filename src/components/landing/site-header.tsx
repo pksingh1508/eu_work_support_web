@@ -38,7 +38,7 @@ export function SiteHeader() {
           boxShadow: scrolled ? "0 10px 40px rgba(16,29,54,0.08)" : "0 0 0 rgba(0,0,0,0)",
         }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="sticky top-0 z-[110] border-b border-[#101d36]/[0.07] backdrop-blur-xl"
+        className="fixed inset-x-0 top-0 z-[110] border-b border-[#101d36]/[0.07] backdrop-blur-xl"
       >
         <div className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between gap-4 px-5 sm:h-[78px] sm:px-8">
           <Link href="/" className="group flex min-w-0 items-center gap-3 text-[#101d36]">
