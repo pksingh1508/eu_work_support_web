@@ -2,15 +2,51 @@
 
 import Link from "next/link";
 import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { appName, navigationItems } from "./landing-content";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeHref, setActiveHref] = useState("");
+  const pendingHrefRef = useRef<string | null>(null);
+  const pendingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { scrollY, scrollYProgress } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (value) => setScrolled(value > 20));
+  useMotionValueEvent(scrollY, "change", (value) => {
+    setScrolled(value > 20);
+
+    if (pendingHrefRef.current) {
+      const target = document.querySelector<HTMLElement>(pendingHrefRef.current);
+      if (target && Math.abs(target.getBoundingClientRect().top - 90) < 36) {
+        pendingHrefRef.current = null;
+      } else {
+        return;
+      }
+    }
+
+    const activationLine = value + 150;
+    let nextHref = "";
+
+    for (const item of navigationItems) {
+      const section = document.querySelector<HTMLElement>(item.href);
+      if (!section) continue;
+      const sectionTop = section.getBoundingClientRect().top + value;
+      if (sectionTop <= activationLine) nextHref = item.href;
+    }
+
+    setActiveHref((current) => (current === nextHref ? current : nextHref));
+  });
+
+  function selectNavigationItem(href: string) {
+    pendingHrefRef.current = href;
+    setActiveHref(href);
+
+    if (pendingTimerRef.current) clearTimeout(pendingTimerRef.current);
+    pendingTimerRef.current = setTimeout(() => {
+      pendingHrefRef.current = null;
+    }, 1400);
+  }
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -23,6 +59,15 @@ export function SiteHeader() {
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    const hashMatchesNavigation = navigationItems.some((item) => item.href === window.location.hash);
+    if (hashMatchesNavigation) setActiveHref(window.location.hash);
+
+    return () => {
+      if (pendingTimerRef.current) clearTimeout(pendingTimerRef.current);
+    };
+  }, []);
 
   return (
     <>
@@ -56,8 +101,19 @@ export function SiteHeader() {
 
           <nav aria-label="Main navigation" className="hidden items-center gap-1 rounded-full border border-[#101d36]/[0.07] bg-white/70 p-1.5 shadow-sm lg:flex">
             {navigationItems.map((item) => (
-              <a key={item.href} href={item.href} className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-[#eef4ff] hover:text-[#245fc7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3979e8]">
-                {item.label}
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={activeHref === item.href ? "location" : undefined}
+                onClick={() => selectNavigationItem(item.href)}
+                className={`relative isolate overflow-hidden rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3979e8] ${
+                  activeHref === item.href ? "text-white" : "text-slate-600 hover:bg-[#eef4ff] hover:text-[#245fc7]"
+                }`}
+              >
+                {activeHref === item.href ? (
+                  <m.span layoutId="active-navigation-pill" className="absolute inset-0 -z-10 rounded-full bg-[#3979e8] shadow-[0_7px_18px_rgba(57,121,232,.25)]" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
+                ) : null}
+                <span className="relative">{item.label}</span>
               </a>
             ))}
           </nav>
@@ -119,10 +175,16 @@ export function SiteHeader() {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 + index * 0.04 }}
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-bold text-[#101d36] hover:bg-[#eef4ff]"
+                  aria-current={activeHref === item.href ? "location" : undefined}
+                  onClick={() => {
+                    selectNavigationItem(item.href);
+                    setMenuOpen(false);
+                  }}
+                  className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-bold ${
+                    activeHref === item.href ? "bg-[#3979e8] text-white shadow-[0_8px_22px_rgba(57,121,232,.2)]" : "text-[#101d36] hover:bg-[#eef4ff]"
+                  }`}
                 >
-                  {item.label}<span aria-hidden="true" className="text-[#3979e8]">↗</span>
+                  {item.label}<span aria-hidden="true" className={activeHref === item.href ? "text-[#bcd1ff]" : "text-[#3979e8]"}>{activeHref === item.href ? "●" : "↗"}</span>
                 </m.a>
               ))}
               <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3">
