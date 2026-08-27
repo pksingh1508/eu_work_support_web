@@ -83,8 +83,8 @@ export function HeroSection() {
             className="absolute left-1/2 top-[7%] h-[82%] w-[82%] -translate-x-1/2 rounded-[50%] border border-white/80 bg-gradient-to-br from-white/90 to-[#dfeaff]/75 shadow-[inset_0_0_0_1px_rgba(57,121,232,.06),0_35px_90px_rgba(57,121,232,.16)] backdrop-blur"
           />
           <m.div style={{ y: backPhoneY, willChange: "transform" }} className="absolute inset-0">
-            <PhoneFrame src="/assets/search.jpg" alt="EU Work Support search results screen" className="absolute left-0 top-[25%] w-[38%] -rotate-[8deg] sm:left-[1%]" />
-            <PhoneFrame src="/assets/single_country.jpg" alt="EU Work Support country detail screen" className="absolute right-0 top-[20%] w-[39%] rotate-[8deg] sm:right-[1%]" />
+            <PhoneFrame src="/assets/search.jpg" alt="EU Work Support search results screen" eager className="absolute left-0 top-[25%] w-[38%] -rotate-[8deg] sm:left-[1%]" />
+            <PhoneFrame src="/assets/single_country.jpg" alt="EU Work Support country detail screen" eager className="absolute right-0 top-[20%] w-[39%] rotate-[8deg] sm:right-[1%]" />
           </m.div>
           <m.div
             style={{ y: frontPhoneY, willChange: "transform" }}

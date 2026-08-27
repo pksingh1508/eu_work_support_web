@@ -3,6 +3,7 @@
 import { faqs } from "./landing-content";
 import { AnimatePresence, m } from "motion/react";
 import { useState } from "react";
+import { supportEmail } from "@/lib/legal/content";
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -14,7 +15,7 @@ export function FaqSection() {
           <p className="section-kicker">Common questions</p>
           <h2 className="section-title mt-4">Good to know before you go.</h2>
           <p className="mt-5 leading-7 text-slate-600">Still need help? Our support team is one email away.</p>
-          <a href="mailto:contact@euworksupport.com" className="mt-6 inline-flex items-center gap-2 font-bold text-[#245fc7]">Contact support <span aria-hidden="true">↗</span></a>
+          <a href={`mailto:${supportEmail}`} className="mt-6 inline-flex items-center gap-2 font-bold text-[#245fc7]">Contact support <span aria-hidden="true">↗</span></a>
         </m.div>
 
         <div className="space-y-3">
@@ -27,7 +28,7 @@ export function FaqSection() {
                 className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"
               >
                 <span className="text-base font-extrabold tracking-[-0.02em] text-[#101d36] sm:text-lg">{faq.question}</span>
-                <m.span animate={{ rotate: openIndex === index ? 45 : 0 }} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef4ff] text-xl font-medium text-[#3979e8]">+</m.span>
+                <m.span aria-hidden="true" animate={{ rotate: openIndex === index ? 45 : 0 }} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef4ff] text-xl font-medium text-[#3979e8]">+</m.span>
               </button>
               <AnimatePresence initial={false}>
                 {openIndex === index ? (
