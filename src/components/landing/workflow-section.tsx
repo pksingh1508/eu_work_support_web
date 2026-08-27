@@ -5,10 +5,10 @@ import { m } from "motion/react";
 
 export function WorkflowSection() {
   return (
-    <section id="how-it-works" className="bg-white px-5 py-24 sm:px-8 lg:py-32">
+    <section id="how-to-get-access" className="bg-white px-5 py-24 sm:px-8 lg:py-32">
       <div className="mx-auto grid max-w-[1240px] gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
         <m.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.25 }} className="lg:sticky lg:top-32 lg:self-start">
-          <p className="section-kicker">How it works</p>
+          <p className="section-kicker">How to get access</p>
           <h2 className="section-title mt-4">Four small steps to full access.</h2>
           <p className="mt-5 text-lg leading-8 text-slate-600">
             The website handles your account and secure payment. The app uses

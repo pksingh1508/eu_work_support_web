@@ -12,10 +12,10 @@ export default function Home() {
       <SiteHeader />
       <main className="pt-18 sm:pt-19.5">
         <HeroSection />
-        <Testimonial />
-        <AppShowcase />
-        <PricingSection />
         <WorkflowSection />
+        <PricingSection />
+        <AppShowcase />
+        <Testimonial />
         <FaqSection />
       </main>
       <SiteFooter />

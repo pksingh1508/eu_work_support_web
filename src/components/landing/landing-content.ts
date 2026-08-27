@@ -1,9 +1,9 @@
 export const appName = "EU Work Support";
 
 export const navigationItems = [
-  { label: "Features", href: "#features" },
+  { label: "How to get Access", href: "#how-to-get-access" },
   { label: "Pricing", href: "#pricing" },
-  { label: "How it works", href: "#how-it-works" },
+  { label: "Feature", href: "#features" },
   { label: "FAQ", href: "#faq" },
 ];
 
