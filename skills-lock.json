@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "motion": {
+      "source": "oakoss/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion/SKILL.md",
+      "computedHash": "7a4520281629452f1e2352936ca05301eab84603d36adb2bc775d0ec121ac607"
+    },
+    "scroll-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/scroll-animations/SKILL.md",
+      "computedHash": "1dd984a631d29f3ede3cbe3302e8998560e5426761a5f57ed7bb4e74cb8ad2a3"
+    }
+  }
+}
