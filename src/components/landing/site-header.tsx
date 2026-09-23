@@ -10,12 +10,18 @@ import {
   useScroll,
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { appName, navigationItems } from "./landing-content";
+import {
+  appName,
+  appStoreUrl,
+  navigationItems,
+  playStoreUrl,
+} from "./landing-content";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("");
+  const [downloadUrl, setDownloadUrl] = useState(playStoreUrl);
   const pendingHrefRef = useRef<string | null>(null);
   const pendingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -85,6 +91,13 @@ export function SiteHeader() {
     return () => {
       if (pendingTimerRef.current) clearTimeout(pendingTimerRef.current);
     };
+  }, []);
+
+  useEffect(() => {
+    // iPadOS Safari reports itself as "Macintosh", so this also covers iPads.
+    if (/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) {
+      setDownloadUrl(appStoreUrl);
+    }
   }, []);
 
   return (
@@ -302,7 +315,7 @@ export function SiteHeader() {
                   Get PRO
                 </Link>
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.euworksupport.app"
+                  href={downloadUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="flex min-h-12 items-center justify-center rounded-2xl bg-[#3979e8] text-sm font-bold text-white"

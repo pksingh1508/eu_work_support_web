@@ -1,5 +1,10 @@
 export const appName = "EU Work Support";
 
+export const playStoreUrl =
+  "https://play.google.com/store/apps/details?id=com.euworksupport.app";
+export const appStoreUrl =
+  "https://apps.apple.com/app/eu-work-support/id6802320607";
+
 export const navigationItems = [
   { label: "How to get Access", href: "#how-to-get-access" },
   { label: "Pricing", href: "#pricing" },

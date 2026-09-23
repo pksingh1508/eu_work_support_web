@@ -1,6 +1,7 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { CheckoutButton } from "@/components/checkout/checkout-button";
+import { appStoreUrl, playStoreUrl } from "@/components/landing/landing-content";
 import { SiteFooter } from "@/components/site/site-footer";
 import { getAppUserForClerkAccount } from "@/lib/supabase/app-users";
 
@@ -65,9 +66,9 @@ export default async function CheckoutPage() {
                     <p className="mt-1 text-xs leading-5 text-slate-400">Use this same email when signing in to the mobile app.</p>
                   </div>
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <a
-                      href="https://play.google.com/store/apps/details?id=com.euworksupport.app"
+                      href={playStoreUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl bg-[#5bd6ac] px-6 text-sm font-extrabold text-[#101d36] transition-colors hover:bg-[#78e0be]"
@@ -75,11 +76,19 @@ export default async function CheckoutPage() {
                       Open Android app
                       <span aria-hidden="true">↗</span>
                     </a>
+                    <a
+                      href={appStoreUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl bg-[#5bd6ac] px-6 text-sm font-extrabold text-[#101d36] transition-colors hover:bg-[#78e0be]"
+                    >
+                      Open iOS app
+                      <span aria-hidden="true">↗</span>
+                    </a>
                     <Link href="/" className="inline-flex min-h-13 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.06] px-6 text-sm font-bold text-white transition-colors hover:bg-white/10">
                       Explore the website
                     </Link>
                   </div>
-                  <p className="mt-4 text-xs text-slate-400">iOS app coming soon</p>
                 </div>
               </div>
 
