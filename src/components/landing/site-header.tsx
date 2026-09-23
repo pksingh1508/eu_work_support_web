@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -127,10 +128,15 @@ export function SiteHeader() {
           >
             <m.span
               whileHover={{ rotate: -5, scale: 1.04 }}
-              className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-[13px] bg-[#3979e8] text-[13px] font-black tracking-[-0.03em] text-white shadow-[0_8px_22px_rgba(57,121,232,0.3)]"
+              className="flex h-10 w-10 shrink-0 rounded-full shadow-[0_8px_22px_rgba(57,121,232,0.3)]"
             >
-              <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-[#5bd6ac]" />
-              <span className="relative">EU</span>
+              <Image
+                src="/assets/logo.png"
+                alt=""
+                width={40}
+                height={40}
+                loading="eager"
+              />
             </m.span>
             <span className="truncate text-[15px] font-extrabold tracking-[-0.02em] sm:text-base">
               {appName}
