@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { appName } from "@/components/landing/landing-content";
 import { legalLinks, supportEmail } from "@/lib/legal/content";
@@ -11,12 +12,7 @@ export function SiteFooter() {
       <div className="relative mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[1.25fr_0.65fr_0.7fr]">
         <div className="max-w-xl">
           <div className="inline-flex items-center gap-3 font-semibold">
-            <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-[14px] bg-[#3979e8] text-sm font-black text-white">
-              <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-[#5bd6ac]" />
-              <span className="relative">
-              EU
-              </span>
-            </span>
+            <Image src="/assets/logo.png" alt="" width={44} height={44} />
             <span className="font-extrabold tracking-[-0.02em]">{appName}</span>
           </div>
           <p className="mt-5 max-w-lg text-sm leading-7 text-slate-300">
