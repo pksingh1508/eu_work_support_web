@@ -189,7 +189,7 @@ export function SiteHeader() {
               href="/sign-up"
               className="group relative hidden min-h-11 items-center justify-center gap-2 overflow-hidden rounded-full bg-ink px-5 text-sm font-bold text-white shadow-[0_10px_25px_rgba(16,29,54,0.18)] transition-[transform,background-color] duration-300 ease-smooth hover:-translate-y-0.5 hover:bg-brand-strong active:translate-y-0 sm:inline-flex"
             >
-              Create account
+              Create Account
             </PendingLink>
             <button
               type="button"
@@ -308,26 +308,26 @@ export function SiteHeader() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: prefersReducedMotion ? 0 : 0.24 }}
-                className="mt-2 grid grid-cols-2 gap-2 border-t border-ink/[0.06] pt-3"
+                className="mt-2 grid grid-cols-1 gap-2 border-t border-ink/[0.06] pt-3 min-[360px]:grid-cols-2"
               >
                 <Link
                   href="/sign-in"
                   onClick={() => setMenuOpen(false)}
-                  className="flex min-h-12 items-center justify-center rounded-2xl border border-ink/10 bg-white text-sm font-bold text-ink"
+                  className="flex min-h-12 items-center justify-center rounded-2xl border border-ink/10 bg-white px-3 text-sm font-bold text-ink"
                 >
                   Sign in
                 </Link>
                 <PendingLink
                   href="/sign-up"
-                  className="group flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-brand text-sm font-bold text-white shadow-[0_10px_24px_-8px_rgba(57,121,232,0.55)]"
+                  className="group flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-brand px-3 text-sm font-bold text-white shadow-[0_10px_24px_-8px_rgba(57,121,232,0.55)]"
                 >
-                  Get PRO
+                  Create Account
                 </PendingLink>
                 <a
                   href={downloadUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="col-span-2 flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-ink text-sm font-bold text-white"
+                  className="col-span-full flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-ink px-3 text-sm font-bold text-white"
                 >
                   Download the app
                   <ArrowUpRightIcon className="h-4 w-4 text-white/70" />
