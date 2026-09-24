@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContactCard } from "@/components/legal/contact-card";
 import { LegalPage } from "@/components/legal/legal-page";
 import { SiteFooter } from "@/components/site/site-footer";
 import { contactUs } from "@/lib/legal/content";
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 export default function ContactUsPage() {
   return (
     <>
-      <LegalPage content={contactUs} />
+      <LegalPage content={contactUs}>
+        <ContactCard />
+      </LegalPage>
       <SiteFooter />
     </>
   );

@@ -1,29 +1,43 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/components/motion/reveal";
 import { appName } from "@/components/landing/landing-content";
-import { legalLinks, supportEmail } from "@/lib/legal/content";
 import { StoreButtons } from "@/components/landing/store-buttons";
+import { MailIcon } from "@/components/ui/icons";
+import { legalLinks, supportEmail } from "@/lib/legal/content";
+import { BackToTop } from "./back-to-top";
+import { SiteLogo } from "./site-logo";
+
+const underlineLink =
+  "bg-linear-to-r from-mint to-mint bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size,color] duration-300 ease-smooth hover:bg-[length:100%_1px] hover:text-white";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-[#0b162c] px-5 pb-9 pt-16 text-white sm:px-8 lg:pt-20">
-      <div className="absolute -right-48 -top-48 h-[430px] w-[430px] rounded-full bg-[#3979e8]/20 blur-[100px]" />
-      <div className="absolute -bottom-52 -left-24 h-[380px] w-[380px] rounded-full bg-[#5bd6ac]/10 blur-[100px]" />
-      <div className="relative mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[1.25fr_0.65fr_0.7fr]">
-        <div className="max-w-xl">
-          <div className="inline-flex items-center gap-3 font-semibold">
-            <Image src="/assets/logo.png" alt="" width={44} height={44} />
-            <span className="font-extrabold tracking-[-0.02em]">{appName}</span>
-          </div>
+    <footer className="relative overflow-hidden bg-ink-deep px-5 pb-9 pt-16 text-white sm:px-8 lg:pt-20">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-brand/60 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -right-48 -top-48 h-[480px] w-[480px] rounded-full bg-[radial-gradient(closest-side,rgba(57,121,232,0.22),transparent)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-52 -left-24 h-[420px] w-[420px] rounded-full bg-[radial-gradient(closest-side,rgba(91,214,172,0.12),transparent)]"
+      />
+
+      <div className="relative mx-auto grid max-w-[1240px] grid-cols-1 gap-12 lg:grid-cols-[1.25fr_0.65fr_0.7fr]">
+        <Reveal y={20} className="max-w-xl">
+          <SiteLogo tone="light" />
           <p className="mt-5 max-w-lg text-sm leading-7 text-slate-300">
             Clearer country guidance, helpful document lists, and practical
             support for every step of your European work journey.
           </p>
           <StoreButtons compact className="mt-7" />
-        </div>
+        </Reveal>
 
-        <div>
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#78e0be]">
+        <Reveal y={20} delay={0.1}>
+          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-mint-light">
             Support
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-300">
@@ -31,33 +45,34 @@ export function SiteFooter() {
           </p>
           <a
             href={`mailto:${supportEmail}`}
-            className="mt-4 inline-flex text-sm font-semibold text-white underline decoration-[#5bd6ac] decoration-2 underline-offset-4 hover:text-[#d9f4e8]"
+            className="group mt-4 inline-flex items-center gap-2.5 text-sm font-semibold text-white"
           >
-            {supportEmail}
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.08] text-mint-light transition-colors group-hover:bg-mint group-hover:text-ink">
+              <MailIcon className="h-4 w-4" />
+            </span>
+            <span className={underlineLink}>{supportEmail}</span>
           </a>
-        </div>
+        </Reveal>
 
-        <nav aria-label="Policies" className="flex flex-col items-start">
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#78e0be]">
+        <Reveal as="nav" aria-label="Policies" y={20} delay={0.2}>
+          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-mint-light">
             Policies
           </h2>
-          <div className="mt-4 flex flex-col gap-3 text-sm text-slate-300">
+          <ul className="mt-4 flex flex-col items-start gap-3 text-sm text-slate-300">
             {legalLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="hover:text-white"
-              >
-                {link.label}
-              </Link>
+              <li key={link.href}>
+                <Link href={link.href} className={underlineLink}>
+                  {link.label}
+                </Link>
+              </li>
             ))}
-          </div>
-        </nav>
+          </ul>
+        </Reveal>
       </div>
 
-      <div className="relative mx-auto mt-12 flex max-w-[1240px] flex-col gap-3 border-t border-white/10 pt-7 text-xs leading-6 text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative mx-auto mt-12 flex max-w-[1240px] flex-col gap-4 border-t border-white/10 pt-7 text-xs leading-6 text-slate-400 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 {appName}. All rights reserved.</p>
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link href="/" className="hover:text-white">
             Home
           </Link>
@@ -67,10 +82,12 @@ export function SiteFooter() {
           <a href={`mailto:${supportEmail}`} className="hover:text-white">
             Contact support
           </a>
+          <BackToTop />
         </div>
       </div>
       <p className="relative mx-auto mt-5 max-w-[1240px] text-[11px] leading-5 text-slate-500">
-        EU Work Support provides general informational guidance and is not a substitute for official legal, immigration, or government advice.
+        EU Work Support provides general informational guidance and is not a
+        substitute for official legal, immigration, or government advice.
       </p>
     </footer>
   );

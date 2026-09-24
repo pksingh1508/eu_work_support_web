@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
 import "./globals.css";
@@ -26,17 +26,32 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#fafdff",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ cssLayerName: "clerk" }}>
       <html
         lang="en"
+        data-scroll-behavior="smooth"
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
+        <head>
+          {/* Scroll-reveal content starts hidden until JavaScript animates it in. */}
+          <noscript>
+            <style>
+              {
+                "[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}"
+              }
+            </style>
+          </noscript>
+        </head>
         <body className="flex min-h-full flex-col">
           <MotionProvider>{children}</MotionProvider>
         </body>

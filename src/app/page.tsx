@@ -1,4 +1,5 @@
 import { AppShowcase } from "@/components/landing/app-showcase";
+import { CtaSection } from "@/components/landing/cta-section";
 import { FaqSection } from "@/components/landing/faq-section";
 import { HeroSection } from "@/components/landing/hero-section";
 import { PricingSection } from "@/components/landing/pricing-section";
@@ -6,9 +7,10 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { Testimonial } from "@/components/landing/Testimonial";
 import { WorkflowSection } from "@/components/landing/workflow-section";
 import { SiteFooter } from "@/components/site/site-footer";
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#fafdff]">
+    <div className="min-h-screen bg-surface">
       <SiteHeader />
       <main className="pt-18 sm:pt-19.5">
         <HeroSection />
@@ -17,6 +19,7 @@ export default function Home() {
         <AppShowcase />
         <Testimonial />
         <FaqSection />
+        <CtaSection />
       </main>
       <SiteFooter />
     </div>

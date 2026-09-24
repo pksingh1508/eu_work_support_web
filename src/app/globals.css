@@ -1,84 +1,301 @@
+/* Clerk renders its styles into the "clerk" layer (see ClerkProvider appearance),
+   so Tailwind utilities passed through `appearance.elements` can override them. */
+@layer theme, base, clerk, components, utilities;
+
 @import "tailwindcss";
 
-:root {
-  --background: #fafdff;
-  --foreground: #101d36;
+@theme {
+  --color-ink: #101d36;
+  --color-ink-deep: #0b162c;
+  --color-brand: #3979e8;
+  --color-brand-strong: #245fc7;
+  --color-brand-deep: #174da9;
+  --color-brand-soft: #eaf2ff;
+  --color-mint: #5bd6ac;
+  --color-mint-light: #78e0be;
+  --color-mint-soft: #dff8ef;
+  --color-mint-deep: #138466;
+  --color-violet: #6658d9;
+  --color-gold: #ffcf40;
+  --color-surface: #fafdff;
+  --color-surface-tint: #f1f6ff;
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-marquee: marquee 60s linear infinite;
+  --animate-orbit: orbit 90s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient-pan: gradient-pan 7s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.6s var(--ease-smooth) both;
+  --animate-scroll-cue: scroll-cue 1.8s var(--ease-smooth) infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 150% 0;
+    }
+    to {
+      background-position: -50% 0;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+
+  @keyframes gradient-pan {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes scroll-cue {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -4px, 0);
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  text-rendering: optimizeLegibility;
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
 }
 
-body {
-  overflow-x: hidden;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* `clip` (unlike `hidden`) keeps `position: sticky` working. */
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: #ccebdd;
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  section[id] {
+    scroll-margin-top: 96px;
+  }
 }
 
-::selection {
-  background: #ccebdd;
-  color: #101d36;
+@layer components {
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--color-brand-strong);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .section-kicker::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-brand), var(--color-mint));
+  }
+
+  .section-title {
+    color: var(--color-ink);
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 1;
+    text-wrap: balance;
+  }
 }
 
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(57, 121, 232, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(57, 121, 232, 0.055) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-}
-
-.auth-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: linear-gradient(to bottom right, black, transparent 78%);
-}
-
-.text-gradient {
-  background: linear-gradient(110deg, #3979e8 8%, #6658d9 55%, #269a79 100%);
+@utility text-gradient {
+  background-image: linear-gradient(
+    110deg,
+    #3979e8 8%,
+    #6658d9 45%,
+    #269a79 75%,
+    #3979e8 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.section-kicker {
-  color: #245fc7;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  line-height: 1.2;
-  text-transform: uppercase;
+@utility text-gradient-light {
+  background-image: linear-gradient(
+    110deg,
+    #9cc0ff 8%,
+    #b8adff 45%,
+    #78e0be 75%,
+    #9cc0ff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.section-title {
-  color: #101d36;
-  font-size: clamp(2.35rem, 5vw, 4.25rem);
-  font-weight: 900;
-  letter-spacing: -0.055em;
-  line-height: 1;
-  text-wrap: balance;
+@utility hero-grid {
+  background-image:
+    linear-gradient(rgba(57, 121, 232, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 121, 232, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 30%,
+    black 30%,
+    transparent 78%
+  );
 }
 
-:focus-visible {
-  outline: 2px solid #3979e8;
-  outline-offset: 3px;
+@utility dot-grid {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.35) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom right, black, transparent 78%);
 }
 
-section[id] {
-  scroll-margin-top: 90px;
+/* Shimmering placeholder used for loading states. */
+@utility skeleton {
+  background-color: rgb(16 29 54 / 0.07);
+  background-image: linear-gradient(
+    90deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.7) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: var(--animate-shimmer);
+}
+
+@utility skeleton-dark {
+  background-color: rgb(255 255 255 / 0.07);
+  background-image: linear-gradient(
+    90deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.1) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: var(--animate-shimmer);
+}
+
+/* Rotating gradient border: apply to a wrapper with padding equal to the border width. */
+@utility glow-border {
+  background: conic-gradient(
+    from var(--border-angle),
+    rgb(57 121 232 / 0.15) 0%,
+    #3979e8 12%,
+    #78e0be 22%,
+    rgb(57 121 232 / 0.15) 34%,
+    rgb(57 121 232 / 0.15) 50%,
+    #6658d9 62%,
+    #ffcf40 72%,
+    rgb(57 121 232 / 0.15) 84%
+  );
+  animation: border-spin 7s linear infinite;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+/* Scroll-reveal content starts hidden; never leave it hidden on paper. */
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -86,11 +303,16 @@ section[id] {
     scroll-behavior: auto;
   }
 
-  *,
+  /* Spinners opt out with data-motion="essential" so loading stays visible. */
+  *:not([data-motion="essential"]),
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .marquee-viewport {
+    overflow-x: auto;
   }
 }

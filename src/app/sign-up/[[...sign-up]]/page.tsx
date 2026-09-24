@@ -1,5 +1,5 @@
 import { SignUp } from "@clerk/nextjs";
-import { AuthShell } from "@/components/auth/auth-shell";
+import { AuthCard } from "@/components/auth/auth-card";
 import { clerkAppearance } from "@/components/auth/clerk-appearance";
 
 type SignUpPageProps = {
@@ -13,11 +13,7 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const email = Array.isArray(params.email) ? params.email[0] : params.email;
 
   return (
-    <AuthShell
-      eyebrow="Join EU Work Support"
-      title="Create your account. Start with clarity."
-      subtitle="Use the same email as the mobile app. After your account is verified, we’ll take you directly to secure checkout."
-    >
+    <AuthCard fields={2}>
       <SignUp
         appearance={clerkAppearance}
         fallbackRedirectUrl="/checkout"
@@ -27,6 +23,6 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
         routing="path"
         signInUrl="/sign-in"
       />
-    </AuthShell>
+    </AuthCard>
   );
 }

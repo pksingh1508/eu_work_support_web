@@ -6,9 +6,9 @@ export const appStoreUrl =
   "https://apps.apple.com/app/eu-work-support/id6802320607";
 
 export const navigationItems = [
-  { label: "How to get Access", href: "#how-to-get-access" },
+  { label: "How to get access", href: "#how-to-get-access" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Feature", href: "#features" },
+  { label: "Features", href: "#features" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -79,7 +79,8 @@ export const workflowSteps = [
   },
   {
     title: "Pay the one-time fee",
-    description: "Complete the one-time payment.",
+    description:
+      "Complete the one-time $50 payment through secure Stripe checkout. No subscription and no renewals.",
   },
   {
     title: "Get lifetime access",
@@ -88,7 +89,13 @@ export const workflowSteps = [
   },
 ];
 
-export const faqs = [
+export type Faq = {
+  question: string;
+  answer: string;
+  link?: { label: string; href: string };
+};
+
+export const faqs: Faq[] = [
   {
     question: "Why do I pay on the website instead of the mobile app?",
     answer:
@@ -103,5 +110,19 @@ export const faqs = [
     question: "Which email should I use?",
     answer:
       "Use the same email on the website that you plan to use in the mobile app. That is how your PRO access is matched.",
+  },
+  {
+    question: "What happens after I pay?",
+    answer:
+      "Once Stripe confirms your payment, your account is upgraded to PRO. Open the mobile app, sign in with the same email, and all PRO content is unlocked.",
+  },
+  {
+    question: "Can I get a refund?",
+    answer:
+      "You can request a refund within 7 days of purchase if you cannot access PRO after payment and we are unable to fix it, or if you were charged in error. See our Refund & Cancellation Policy for the full details.",
+    link: {
+      label: "Read the refund policy",
+      href: "/refund-and-cancellation-policy",
+    },
   },
 ];
