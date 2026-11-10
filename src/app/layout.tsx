@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
 import "./globals.css";
 
+const GOOGLE_TAG_ID = "GTM-WKTCTM5R";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,6 +45,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
         <head>
+          {/* Google tag (GTM-WKTCTM5R) — must stay first in <head>, once per page. */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_ID}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());",
+            }}
+          />
           {/* Scroll-reveal content starts hidden until JavaScript animates it in. */}
           <noscript>
             <style>
